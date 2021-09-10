@@ -15,7 +15,7 @@ class RegisterSerializer(serializers.ModelSerializer):
         password2 = obj.get('password2')
         if password1 != password2:
             raise serializers.ValidationError(
-                {"Password": "Invalid passwords"})
+                {"Password": "Passwords don't match"})
 
         return super().validate(obj)
 
@@ -23,11 +23,14 @@ class RegisterSerializer(serializers.ModelSerializer):
         return User.objects.create_user(validated_data['username'], validated_data['email'], validated_data['password'])
 
 
+
 class ProfileSerializer(serializers.ModelSerializer):
     class Meta:
         model = Profile
-        fields = '__all__'
+        fields = "__all__"
 
+    # def create(self, validated_data):
+    #     pass
 
 class SkillSerializer(serializers.ModelSerializer):
     class Meta:
