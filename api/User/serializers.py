@@ -3,11 +3,12 @@ from django.contrib.auth.models import User
 from .models import Profile, Skill
 
 class RegisterSerializer(serializers.ModelSerializer):
-    password2 = serializers.CharField(max_length=100, write_only=True)
+    profile = serializers.StringRelatedField()
+    password2 = serializers.CharField(max_length=20, write_only=True)
 
     class Meta:
         model = User
-        fields = ('username', 'email', 'password', 'password2')
+        fields = ('profile', 'first_name', 'last_name', 'username', 'email', 'password', 'password2')
         extra_kwargs = {'password': {'write_only': True}}
 
     def validate(self, obj):
@@ -20,14 +21,18 @@ class RegisterSerializer(serializers.ModelSerializer):
         return super().validate(obj)
 
     def create(self, validated_data):
-        return User.objects.create_user(validated_data['username'], validated_data['email'], validated_data['password'])
+        return User.objects.create_user(validated_data['first_name'],validated_data['last_name'],validated_data['username'], validated_data['email'], validated_data['password'])
 
 
 
 class ProfileSerializer(serializers.ModelSerializer):
+    skills = serializers.StringRelatedField(many=True, read_only=True)
     class Meta:
         model = Profile
-        fields = "__all__"
+        fields = ['skills','name', 'email', 'username',
+                  'adress', 'bio', 'short_intro', 'picture',
+                  'github', 'linkedin', 'twitter',
+                  'youtube', 'website']
 
     # def create(self, validated_data):
     #     pass
