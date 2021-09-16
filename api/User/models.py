@@ -1,15 +1,13 @@
 from django.db import models
-from django.contrib.auth.models import User
+from django.contrib.auth.models import User, AbstractUser
 import uuid
+
 
 
 # Create your models here.
 class Profile(models.Model):
     #id = models.UUIDField(default=uuid.uuid4, unique=True, primary_key=True, editable=False)
-    user = models.OneToOneField(User, related_name='profile', on_delete=models.CASCADE, unique=True , null=True, blank=True)
-    name = models.CharField(max_length=200, blank=True, null=True)
-    email = models.EmailField(max_length=500, blank=True, null=True)
-    username = models.CharField(max_length=200, blank=True, null=True)
+    user = models.OneToOneField(User, related_name='user', on_delete=models.CASCADE, unique=True , null=True, blank=True)
     adress = models.CharField(max_length=150, null=True, blank=True)
     bio = models.TextField(max_length=500, null=True, blank=True)
     short_intro = models.CharField(max_length=200, null=True, blank=True)
