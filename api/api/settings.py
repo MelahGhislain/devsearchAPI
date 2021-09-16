@@ -41,6 +41,7 @@ INSTALLED_APPS = [
 
     'rest_framework',
     'rest_framework_simplejwt',
+    'corsheaders',
     'User',
     'project',
 ]
@@ -127,6 +128,11 @@ STATIC_URL = '/static/'
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/3.2/ref/settings/#default-auto-field
+
+# This are the urls that can access our api
+CORS_ALLOWED_ORIGINS = [
+    'http://localhost:3000'
+]
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 

@@ -14,6 +14,7 @@ class RegisterSerializer(serializers.ModelSerializer):
         extra_kwargs = {'password': {'write_only': True}}
 
     def validate(self, obj):
+
         """ checks if both password match else returns an error"""
 
         password1 = obj.get('password')
@@ -30,10 +31,6 @@ class RegisterSerializer(serializers.ModelSerializer):
                                         validated_data['password'], first_name=validated_data['first_name'],
                                         last_name=validated_data['last_name'])
 
-
-class LoginSerializer(serializers.ModelSerializer):
-    username = serializers.CharField(max_length=20)
-    password = serializers.CharField(max_length=20)
 
 
 class SkillSerializer(serializers.ModelSerializer):
